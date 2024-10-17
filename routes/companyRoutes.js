@@ -2,12 +2,23 @@
 const express = require('express');const router = express.Router();const companyController = require('../controllers/companyController');
 require('dotenv').config();
 const { Pool } = require('pg');
+
+// const pool = new Pool({
+//   user: process.env.PG_USER,
+//   host: process.env.PG_HOST,
+//   database: process.env.PG_DATABASE,
+//   password: process.env.PG_PASSWORD,
+//   port: process.env.PG_PORT             });
+
 const pool = new Pool({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT             });
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
+
+
 router.post('/', (req, res, next) => {
     console.log('Received request body:', req.body);
     companyController.createCompany(req, res).catch(next);});
